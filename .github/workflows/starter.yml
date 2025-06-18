@@ -47,7 +47,7 @@ jobs:
           npm test
 
       # Run the linter.
-      - run: cd backend && npx eslint && npm run lint
+      - run: cd backend && npx eslint . && npm run lint
 
       # Send a console message at completion.
       - run: |
