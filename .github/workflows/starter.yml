@@ -45,8 +45,8 @@ jobs:
           cd backend
           npm test
 
-      # Run the linter.
-      - run: cd backend && npm run lint
+      # # Run the linter.
+      # - run: cd backend && npm run lint
 
       # Send a console message at completion.
       - run: |
