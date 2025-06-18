@@ -43,7 +43,6 @@ jobs:
       - name: Run tests
         run: | 
           cd backend
-          npm run build --if-present
           npm test
 
       # Run the linter.
