@@ -28,16 +28,17 @@ jobs:
       - name: Terraform Initialize
         run: terraform init
 
-      # - name: Terraform Validate
-      #   run: terraform validate 
+      - name: Terraform Validate
+        run: terraform validate 
 
-      # - name: Terraform Plan
-      #   run: terraform plan 
-      #   continue-on-error: true
+      - name: Terraform Plan
+        run: terraform plan 
+        continue-on-error: true
 
-      # - name: Terraform Apply
-      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+        continue-on-error: true
 
       - name: Terraform Destroy
         run:  terraform destroy -auto-approve
