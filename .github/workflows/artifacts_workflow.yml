@@ -11,7 +11,7 @@ on:
         required: true
         default: 'error.html'
 env:
-  BUCKET_NAME: website-artifacts
+  BUCKET_NAME: website-artifacts-tommy
 jobs:
   build:
     runs-on: ubuntu-latest
