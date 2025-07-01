@@ -30,21 +30,26 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
       
-      # Initialize your Terraform configuration
-      - name: Terraform Init
-        run: terraform init
+      # # Initialize your Terraform configuration
+      # - name: Terraform Init
+      #   run: terraform init
 
-      # Validate your Terraform configuration
-      - name: Terraform Validate
-        run: terraform validate 
+      # # Validate your Terraform configuration
+      # - name: Terraform Validate
+      #   run: terraform validate 
 
-      # Generate and display an execution plan
-      - name: Terraform Plan
-        run: terraform plan 
-      # Apply the changes required to reach the desired state of the configuration
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-        continue-on-error: true
+      # # Generate and display an execution plan
+      # - name: Terraform Plan
+      #   run: terraform plan 
+      # # Apply the changes required to reach the desired state of the configuration
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
+      #   continue-on-error: true
+
+      - name: Terraform Destroy
+        run:  |
+          terraform plan -destroy
+          terraform destroy -auto-approve
 
       # Check the status of the Blue environment (pseudo-code)
       - name: Check status of Blue Environment
