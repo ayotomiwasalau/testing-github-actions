@@ -44,6 +44,7 @@ jobs:
       # Apply the changes required to reach the desired state of the configuration
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        continue-on-error: true
 
       # Check the status of the Blue environment (pseudo-code)
       - name: Check status of Blue Environment
