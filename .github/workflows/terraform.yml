@@ -19,28 +19,34 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
+          # aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
           aws-region: us-east-1
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Terraform Initialize
+      - name: Terraform Init
         run: terraform init
 
       - name: Terraform Validate
         run: terraform validate 
 
+      - name: Terraform Refresh
+        run: terraform refresh
+
       - name: Terraform Plan
-        run: terraform plan 
-        continue-on-error: true
+        id: plan
+        run: terraform plan -detailed-exitcode
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
         run: terraform apply -auto-approve
-        continue-on-error: true
 
-      - name: Terraform Destroy
-        run:  |
-          terraform plan -destroy
-          terraform destroy -auto-approve
+      - name: Handle No Changes
+        if: steps.plan.outcome == 'failure' && steps.plan.exitcode == 0
+        run: echo "No changes needed - infrastructure is up to date"
+
+      # - name: Terraform Destroy
+      #   run:  |
+      #     terraform plan -destroy
+      #     terraform destroy -auto-approve
