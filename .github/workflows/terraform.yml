@@ -46,7 +46,6 @@ jobs:
         if: steps.plan.outcome == 'failure' && steps.plan.exitcode == 0
         run: echo "No changes needed - infrastructure is up to date"
 
-
       # - name: Terraform Destroy
       #   run:  |
       #     terraform plan -destroy
